@@ -2,16 +2,25 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+const config = {
+    apiKey: "AIzaSyCcElnaA5kblRTE-HBV3JFr3t8IshiyCwI",
+    authDomain: "ecomm-app-47aa6.firebaseapp.com",
+    databaseURL: "https://ecomm-app-47aa6.firebaseio.com",
+    projectId: "ecomm-app-47aa6",
+    storageBucket: "ecomm-app-47aa6.appspot.com",
+    messagingSenderId: "842452814160",
+    appId: "1:842452814160:web:c02d3eca9a0d1e3b6ec455",
+    measurementId: "G-M40LNMVY1R"
+  };
 
-
-  const config = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER
-  }
+//   const config = {
+//   apiKey: process.env.FIREBASE_API_KEY,
+//   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+//   databaseURL: process.env.FIREBASE_DATABASE_URL,
+//   projectId: process.env.FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER
+//   }
 
   export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return;
