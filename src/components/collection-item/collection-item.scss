@@ -7,15 +7,18 @@
         flex-direction: column;
         height:350px;
         align-items: center;
+
+        &:hover {
+            .collection-image {
+                opacity: .8;
+            }
+    
+            .custom-button {
+                display: block;
+            }
+        }
     }
 
-    &-cart {
-        position: absolute;
-        top:80%;
-        left:50%;
-        transform: translate(-50%,-50%);
-        padding: 15px;
-    }
 
     &-image {
         width:100%;
@@ -43,5 +46,18 @@
     &-price {
         width: 10%;
     }
+
+
+
+}
+
+.custom-button {
+    width:80%;
+    opacity: .7;
+    position: absolute;
+    top:80%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display:none
 
 }
