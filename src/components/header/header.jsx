@@ -1,6 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux' // connect is hoc that lets us have access to redux
 import CartIcon from '../cart-icon/cart-icon'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import CartDropdown from '../cart-dropdown/cart-dropdown'
