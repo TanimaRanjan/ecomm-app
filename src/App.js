@@ -1,4 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import HomePage from './pages/homepage/homepage'
@@ -10,6 +12,15 @@ import {auth , createUserProfileDocument} from './firebase/firebase.util'
 
 
 import './App.css';
+import { GlobalStyle } from './global.styles'
+
+
+const Text = styled.div`
+  color:red;
+  font-size:28px;
+  border:${({isActive}) => 
+  isActive ? '1px solid black' : '3px dotted green'};
+`
 
 class App extends React.Component {
 
@@ -44,6 +55,8 @@ class App extends React.Component {
   render() {
   return (
     <div>
+      <GlobalStyle />
+      <Text isActive={false}>Hello Im Text</Text>
       <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />

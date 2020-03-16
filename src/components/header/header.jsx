@@ -7,33 +7,34 @@ import CartDropdown from '../cart-dropdown/cart-dropdown'
 
 import {auth} from '../../firebase/firebase.util'
 
-import './header.scss'
+// import './header.scss'
+import {HeaderContainer, LogoContainer, OptionsContainer, OptionDivContainer, OptionLinkContainer} from './header.styles'
 
 
 const Header = ({currentUser, hidden}) => (
-    <div className="header">
-        <Link className ="logo-container" to ="/" >
+    <HeaderContainer>
+        <LogoContainer to ="/" >
             <Logo className="logo" />
-        </Link>
-        <div className='options'>
-            <Link className ='option' to ="/shop" >
+        </LogoContainer>
+        <OptionsContainer>
+            <OptionLinkContainer to ="/shop" >
                 SHOP
-            </Link>
-            <Link className ='option' to ="/shop" >
+            </OptionLinkContainer>
+            <OptionLinkContainer to ="/shop" >
                 CONTACT
-            </Link>
+            </OptionLinkContainer>
             {
                 currentUser ? 
-                <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>
+                <OptionLinkContainer as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLinkContainer>
                 : 
-                <Link className='option' to='/signInUp'>SIGN IN</Link>
+                <OptionLinkContainer to='/signInUp'>SIGN IN</OptionLinkContainer>
             }
             <CartIcon />
-        </div>
+        </OptionsContainer>
         {hidden ? null : 
             <CartDropdown />
         }
-    </div>
+    </HeaderContainer>
 
 )
 
