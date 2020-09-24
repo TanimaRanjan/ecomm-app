@@ -1,6 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import HomePage from './pages/homepage/homepage'
@@ -8,76 +6,63 @@ import ShopPage from './pages/shop-page/shop-page'
 import Header from './components/header/header'
 import SignInUp from './pages/sign-in-up/sign-in-up'
 import {setCurrentUser} from './redux/user/user.action'
-import {auth , createUserProfileDocument} from './firebase/firebase.util'
-
-
+import {auth, createUserProfileDocument} from './firebase/firebase.util'
 import './App.css';
-import { GlobalStyle } from './global.styles'
-
-
-const Text = styled.div`
-  color:red;
-  font-size:28px;
-  border:${({isActive}) => 
-  isActive ? '1px solid black' : '3px dotted green'};
-`
+import {GlobalStyle} from './global.styles'
 
 class App extends React.Component {
 
+    unsubscribeFromAuth = null;
 
-  unsubscribeFromAuth = null;
+    componentDidMount() {
 
-  componentDidMount() {
-
-    const {setCurrentUser} = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
-        userRef.onSnapshot(snapshot => {
-          setCurrentUser({
-              id:snapshot.id,
-              ...snapshot.data()
-          })
+        const {setCurrentUser} = this.props;
+        this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+            if (userAuth) {
+                const userRef = await createUserProfileDocument(userAuth)
+                userRef.onSnapshot(snapshot => {
+                    setCurrentUser({
+                        id: snapshot.id,
+                        ...snapshot.data()
+                    })
+                })
+            } else {
+                setCurrentUser(
+                    userAuth
+                )
+            }
         })
-      } else {
-        setCurrentUser(
-          userAuth
-        )
-      }
-    })
-  }
+    }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth()
-  }
+    componentWillUnmount() {
+        this.unsubscribeFromAuth()
+    }
 
-
-  render() {
-  return (
-    <div>
-      <GlobalStyle />
-      <Text isActive={false}>Hello Im Text</Text>
-      <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route exact path='/shop' component={ShopPage} />
-        <Route exact path='/signInUp' render={
-            ()=>this.props.currentUser ? 
-              (<Redirect to ='/' />) 
-              : (<SignInUp />)} />
-      </Switch>
-    </div>
-  );
-  }
+    render() {
+        return (
+            <div>
+                <GlobalStyle/>
+                <Header/>
+                <Switch>
+                    <Route exact path='/' component={HomePage}/>
+                    <Route exact path='/shop' component={ShopPage}/>
+                    <Route exact path='/signInUp' render={
+                        () => this.props.currentUser ?
+                            (<Redirect to='/'/>)
+                            : (<SignInUp/>)}/>
+                </Switch>
+            </div>
+        );
+    }
 }
 
 
 const mapSateToProps = ({user}) => ({
-  currentUser: user.currentUser
+    currentUser: user.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+    setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
 export default connect(mapSateToProps, mapDispatchToProps)(App);
